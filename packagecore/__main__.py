@@ -42,6 +42,28 @@ class ShowDistributionsAction(argparse.Action):
         parser.exit()
 
 
+class ParseCommaSeparatedListAction(argparse.Action):
+    def __init__(self,
+                 option_strings,
+                 dest,
+                 nargs=None,
+                 **kwargs):
+        if nargs is not None:
+            raise ValueError("nargs not allowed")
+        super(ParseCommaSeparatedListAction, self).__init__(
+            option_strings,
+            dest=dest,
+            **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        try:
+            assert type(values) is str
+        except AssertionError:
+            raise TypeError("%s is not a string" % values)
+        args = values.split(",")
+        setattr(namespace, self.dest, args)
+
+
 def getVersion():
     import pkg_resources
     versionBytes = pkg_resources.resource_string(__name__, "VERSION")
@@ -74,7 +96,7 @@ def main():
 
     parser.add_argument("-p", "--packages", dest="distributions",
                         metavar="<distribution names>", default=[],
-                        nargs="+", type=str,
+                        type=str, action=ParseCommaSeparatedListAction,
                         help="Instead of building all packages in a configuration file, build "
                         "packages for specific distributions.")
 
