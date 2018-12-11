@@ -98,7 +98,7 @@ def main():
                         metavar="<distribution names>", default=[],
                         type=str, action=ParseCommaSeparatedListAction,
                         help="Instead of building all packages in a configuration file, build "
-                        "packages for specific distributions.")
+                        "packages for specific distributions (comma-separated list).")
 
     parser.add_argument("-o", "--outputdir", dest="outputdir",
                         metavar="<output directory>", default=outputdir,
