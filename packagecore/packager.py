@@ -40,7 +40,7 @@ class Packager:
     #
     # @return The new Packager.
     def __init__(self, conf, srcDir, outputDir, version, release,
-                 distributions=[]):
+                 distributions=None):
         self._outputDir = outputDir
         self._srcDir = srcDir
 

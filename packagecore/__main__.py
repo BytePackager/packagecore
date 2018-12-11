@@ -57,7 +57,7 @@ class ParseCommaSeparatedListAction(argparse.Action):
 
     def __call__(self, parser, namespace, values, option_string=None):
         try:
-            assert type(values) is str
+            assert isinstance(values, str)
         except AssertionError:
             raise TypeError("%s is not a string" % values)
         args = values.split(",")
@@ -95,7 +95,7 @@ def main():
                         "Defaults to '%(default)s'.")
 
     parser.add_argument("-p", "--packages", dest="distributions",
-                        metavar="<distribution names>", default=[],
+                        metavar="<distribution names>", default=None,
                         type=str, action=ParseCommaSeparatedListAction,
                         help="Instead of building all packages in a configuration file, build "
                         "packages for specific distributions (comma-separated list).")
