@@ -25,7 +25,7 @@ def _stringifyCommands(cmds):
 
 
 def parse(conf, version, release):
-    builds = []
+    builds = {}
 
     # set globals
     projectPreCompileCommands = ""
@@ -106,6 +106,6 @@ def parse(conf, version, release):
         if "container" in data:
             buildData.container = data["container"]
 
-        builds.append(buildData)
+        builds[buildData.osName] = buildData
 
     return builds

@@ -72,10 +72,11 @@ def main():
                         default="./", help="The source directory to build. "
                         "Defaults to '%(default)s'.")
 
-    parser.add_argument("-p", "--package", dest="distribution",
-                        metavar="<distribution name>", default=None,
+    parser.add_argument("-p", "--packages", dest="distributions",
+                        metavar="<distribution names>", default=[],
+                        nargs="+", type=str,
                         help="Instead of building all packages in a configuration file, build "
-                        "a package for a specific distribution.")
+                        "packages for specific distributions.")
 
     parser.add_argument("-o", "--outputdir", dest="outputdir",
                         metavar="<output directory>", default=outputdir,
@@ -122,7 +123,7 @@ def main():
     packager = Packager(conf=conf.getData(), srcDir=args.sourceDir,
                         outputDir=args.outputdir,
                         version=version, release=release,
-                        distribution=args.distribution)
+                        distributions=args.distributions)
 
     print("This program is licensed under the GPLv2, a copy of which is ")
     print("included with this software package.")
