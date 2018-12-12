@@ -36,11 +36,11 @@ class Packager:
     # @param srcDir The directory containing the projects source.
     # @param version The version of packages to generate.
     # @param release The release number.
-    # @param distribution The distribution to build a package for.
+    # @param distributions The distributions to build a package for.
     #
     # @return The new Packager.
     def __init__(self, conf, srcDir, outputDir, version, release,
-                 distribution=None):
+                 distributions=None):
         self._outputDir = outputDir
         self._srcDir = srcDir
 
@@ -49,21 +49,17 @@ class Packager:
 
         builds = parse(conf=conf, version=version, release=release)
 
-        if not distribution is None:
-            soloBuild = None
-            for build in builds:
-                if build.osName == distribution:
-                    soloBuild = build
-                    break
+        if distributions:
+            self._queue = []
+
+            for distribution in distributions:
+                if distribution in builds.keys():
+                    self._queue.append(builds[distribution])
                 else:
-                    # skip this package
-                    print("Skipping '%s'." % build.osName)
-            if soloBuild is None:
-                raise PackageNotFoundError("No '%s' listed in configuration." %
-                                           distribution)
-            self._queue = [soloBuild]
+                    raise PackageNotFoundError("No '%s' listed in configuration." %
+                                               distribution)
         else:
-            self._queue = builds
+            self._queue = builds.values()
 
         self._docker = Docker()
 

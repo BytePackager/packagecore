@@ -42,6 +42,28 @@ class ShowDistributionsAction(argparse.Action):
         parser.exit()
 
 
+class ParseCommaSeparatedListAction(argparse.Action):
+    def __init__(self,
+                 option_strings,
+                 dest,
+                 nargs=None,
+                 **kwargs):
+        if nargs is not None:
+            raise ValueError("nargs not allowed")
+        super(ParseCommaSeparatedListAction, self).__init__(
+            option_strings,
+            dest=dest,
+            **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        try:
+            assert isinstance(values, str)
+        except AssertionError:
+            raise TypeError("%s is not a string" % values)
+        args = values.split(",")
+        setattr(namespace, self.dest, args)
+
+
 def getVersion():
     import pkg_resources
     versionBytes = pkg_resources.resource_string(__name__, "VERSION")
@@ -72,10 +94,11 @@ def main():
                         default="./", help="The source directory to build. "
                         "Defaults to '%(default)s'.")
 
-    parser.add_argument("-p", "--package", dest="distribution",
-                        metavar="<distribution name>", default=None,
+    parser.add_argument("-p", "--package", "--packages", dest="distributions",
+                        metavar="<distribution names>", default=None,
+                        type=str, action=ParseCommaSeparatedListAction,
                         help="Instead of building all packages in a configuration file, build "
-                        "a package for a specific distribution.")
+                        "packages for specific distributions (comma-separated list).")
 
     parser.add_argument("-o", "--outputdir", dest="outputdir",
                         metavar="<output directory>", default=outputdir,
@@ -122,7 +145,7 @@ def main():
     packager = Packager(conf=conf.getData(), srcDir=args.sourceDir,
                         outputDir=args.outputdir,
                         version=version, release=release,
-                        distribution=args.distribution)
+                        distributions=args.distributions)
 
     print("This program is licensed under the GPLv2, a copy of which is ")
     print("included with this software package.")

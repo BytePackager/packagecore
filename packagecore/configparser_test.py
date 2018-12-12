@@ -68,7 +68,7 @@ class TestPackager(unittest.TestCase):
     def test_init(self):
         builds = parse(CONF, "1.2.3", 4)
 
-        for build in builds:
+        for build in builds.values():
             self.assertEqual(build.name, CONF["name"])
             self.assertEqual(build.maintainer, CONF["maintainer"])
             self.assertEqual(build.license, CONF["license"])
