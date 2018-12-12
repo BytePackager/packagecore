@@ -37,9 +37,10 @@ flags/options:
 
   The source directory to build. Defaults to './'.
 
-* `-p <distribution name>, --package=<distribution name>`:
+* `-p <distribution list>, --package=<distribution list>, --packages=<distribution list>`:
   Instead of building all packages in a configuration
-  file, build a package for a specific distribution.
+  file, build package for a specific set of distributions in a comma delimited
+  list (e.g., `--packages=ubuntu18.04,fedora29`).
 
 * `-o <output directory>, --outputdir=<output directory>`:
   The directory to put generated packages into. If the
