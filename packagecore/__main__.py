@@ -94,7 +94,7 @@ def main():
                         default="./", help="The source directory to build. "
                         "Defaults to '%(default)s'.")
 
-    parser.add_argument("-p", "--packages", dest="distributions",
+    parser.add_argument("-p", "--package", "--packages", dest="distributions",
                         metavar="<distribution names>", default=None,
                         type=str, action=ParseCommaSeparatedListAction,
                         help="Instead of building all packages in a configuration file, build "
