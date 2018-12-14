@@ -4,13 +4,20 @@ PACKAGENAME = "packagecore"
 
 from setuptools import setup, find_packages
 
+import os
+
 with open("%s/VERSION" % PACKAGENAME, "r") as versionFile:
   version = versionFile.read().strip()
+
+readmePath = os.path.join(os.path.abspath(os.path.dirname(__file__)), "README.md")
+with open(readmePath, "r") as readmeFile:
+  readme = readmeFile.read()
 
 setup(
   name=PACKAGENAME,
   description="Utility for building Linux packages for multiple " \
       "distributions.",
+  long_description=readme,
   author="Dominique LaSalle",
   author_email="dominique@bytepackager.com",
   url="https://github.com/bytepackager/packagecore",
