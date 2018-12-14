@@ -1,2 +1,3 @@
 exclude VERSION
 include packagecore/VERSION
+include README.md
