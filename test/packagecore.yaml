@@ -1,8 +1,8 @@
 name: packagecore-test
-maintainer: dominique@bytepackager.com
+maintainer: packagecore@solidlake.com
 license: GPL2
 summary: Utility for generating Linux packages.
-homepage: https://bytepackager.com
+homepage: https://github.com/BytePackager/packagecore
 commands:
   pre:
     - uname -a

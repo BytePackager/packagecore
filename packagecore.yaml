@@ -1,5 +1,5 @@
 name: packagecore
-maintainer: dominique@bytepackager.com
+maintainer: packagecore@solidlake.com
 license: GPL2
 summary: Utility for generating Linux packages.
 homepage: https://github.com/bytepackager/packagecore

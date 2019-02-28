@@ -20,7 +20,7 @@ setup(
   long_description=readme,
   long_description_content_type="text/markdown",
   author="Dominique LaSalle",
-  author_email="dominique@bytepackager.com",
+  author_email="packagecore@solidlake.com",
   url="https://github.com/bytepackager/packagecore",
   license="GPL2",
   install_requires="pyyaml",
