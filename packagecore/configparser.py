@@ -1,8 +1,8 @@
 ##
 # @file configparser.py
 # @brief Class for turning dictionary config into set of builds.
-# @author Dominique LaSalle <dominique@bytepackager.com>
-# Copyright 2017, Solid Lake LLC
+# @author Dominique LaSalle <packagecore@solidlake.com>
+# Copyright 2017-2019, Solid Lake LLC
 # @version 1
 # @date 2017-07-16
 

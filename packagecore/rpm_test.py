@@ -1,8 +1,8 @@
 ##
 # @file rpm_test.py
 # @brief Unit tests for the RPM class.
-# @author Dominique LaSalle <dominique@bytepackager.com>
-# Copyright 2017, Solid Lake LLC
+# @author Dominique LaSalle <packagecore@solidlake.com>
+# Copyright 2017-2019, Solid Lake LLC
 # @version 1
 # @date 2017-05-28
 

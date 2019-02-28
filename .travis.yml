@@ -5,6 +5,7 @@ python: '3.6'
 before_install:
   - sudo apt-get install -y python3-pip
   - sudo pip3 install --upgrade pip
+  - sudo pip3 install --upgrade setuptools
   - sudo pip3 install pyyaml pylint
 script:
   - if [[ "${TRAVIS_TAG}" == "v${TRAVIS_TAG#v}" ]]; then [[ "${TRAVIS_TAG#v}" != "$(cat VERSION)" ]] && exit 1 || echo "Version match"; fi

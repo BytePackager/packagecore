@@ -1,8 +1,8 @@
 ##
 # @file configfile.py
 # @brief Parse for the YAML config files.
-# @author Dominique LaSalle <dominique@bytepackager.com>
-# Copyright 2017, Solid Lake LLC
+# @author Dominique LaSalle <packagecore@solidlake.com>
+# Copyright 2017-2019, Solid Lake LLC
 # @version 1
 # @date 2017-07-03
 

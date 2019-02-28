@@ -2,7 +2,7 @@
 # @file docker_test.py
 # @brief Unit tests for docker.py
 # @author Dominique LaSalle <dominique@solidlake.com>
-# Copyright 2017, Solid Lake LLC
+# Copyright 2017-2019, Solid Lake LLC
 # @version 1
 # @date 2017-08-08
 

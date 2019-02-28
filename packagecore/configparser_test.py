@@ -1,8 +1,8 @@
 ##
 # @file packager_test.py
 # @brief Unit tests for the Packager class.
-# @author Dominique LaSalle <dominique@bytepackager.com>
-# Copyright 2017, Solid Lake LLC
+# @author Dominique LaSalle <packagecore@solidlake.com>
+# Copyright 2017-2019, Solid Lake LLC
 # @version 1
 # @date 2017-07-16
 
@@ -15,7 +15,7 @@ from .configparser import parse
 
 CONF = {
     "name": "packagecore",
-    "maintainer": "dominique@bytepackager.com",
+    "maintainer": "packagecore@solidlake.com",
     "license": "GPL2",
     "summary": "Utility for generating Linux packages.",
     "homepage": "https://github.com/bytepackager/packagecore",
