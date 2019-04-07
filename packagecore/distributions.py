@@ -106,20 +106,20 @@ DATA = {
         "packageType": "rpm-dnf",
         "formatString": "{name}-{version}-{release}.fc29.{arch}.rpm"
     },
-    "opensuse42.1": {
-        "dockerImage": "opensuse:42.1",
-        "packageType": "rpm-zypper",
-        "formatString": "{name}-{version}-{release}.opensuse42.1.{arch}.rpm"
-    },
-    "opensuse42.2": {
-        "dockerImage": "opensuse:42.2",
-        "packageType": "rpm-zypper",
-        "formatString": "{name}-{version}-{release}.opensuse42.2.{arch}.rpm"
-    },
     "opensuse42.3": {
-        "dockerImage": "opensuse:42.3",
+        "dockerImage": "opensuse/leap:42.3",
         "packageType": "rpm-zypper",
         "formatString": "{name}-{version}-{release}.opensuse42.3.{arch}.rpm"
+    },
+    "opensuse15.0": {
+        "dockerImage": "opensuse/leap:15.0",
+        "packageType": "rpm-zypper",
+        "formatString": "{name}-{version}-{release}.opensuse15.0.{arch}.rpm"
+    },
+    "opensuse15.1": {
+        "dockerImage": "opensuse/leap:15.1",
+        "packageType": "rpm-zypper",
+        "formatString": "{name}-{version}-{release}.opensuse15.1.{arch}.rpm"
     },
     "ubuntu14.04": {
         "dockerImage": "ubuntu:14.04",

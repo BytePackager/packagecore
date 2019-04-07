@@ -27,7 +27,7 @@ packages:
   fedora29:
     builddeps:
       - gcc
-  opensuse42.3:
+  opensuse15.1:
     builddeps:
       - gcc
   ubuntu18.04:
