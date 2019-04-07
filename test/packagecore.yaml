@@ -18,7 +18,7 @@ packages:
   amazonlinux2017.03:
     builddeps:
       - gcc
-  centos7.4:
+  centos7.6:
     builddeps:
       - gcc
   debian9:
