@@ -81,9 +81,9 @@ class AddEnvironmentVariableAction(argparse.Action):
             assert isinstance(values, str)
         except AssertionError:
             raise TypeError("%s is not a string" % values)
-        if not hasattr(namespace, self.dest):
-            setattr(namespace, self.dest, {})
         args = values.split(sep="=", maxsplit=1)
+        if not hasattr(namespace, self.dest) or not getattr(namespace, self.dest):
+            setattr(namespace, self.dest, {})
         env = getattr(namespace, self.dest)
         env[args[0]] = args[1]
 
@@ -138,7 +138,7 @@ def main():
     parser.add_argument("-v", "--version", dest="showversion", action="version",
                         version=getVersion(),
                         help="Display the current version.", default=False)
-    parser.add_argument("-E", "--environment", dest="environment",
+    parser.add_argument("-e", "--environment", dest="environment",
                         action=AddEnvironmentVariableAction,
                         help="Pass environment variables into the containers"
                         " where the packages are built.",default=None)
