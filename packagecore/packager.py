@@ -40,9 +40,13 @@ class Packager:
     #
     # @return The new Packager.
     def __init__(self, conf, srcDir, outputDir, version, release,
-                 distributions=None):
+                 distributions=None, environment=None):
         self._outputDir = outputDir
         self._srcDir = srcDir
+
+        if not environment:
+            environment = {}
+        self._environment = environment
 
         if not os.path.exists(self._outputDir):
             os.makedirs(self._outputDir)

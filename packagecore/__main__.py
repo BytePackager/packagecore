@@ -63,6 +63,30 @@ class ParseCommaSeparatedListAction(argparse.Action):
         args = values.split(",")
         setattr(namespace, self.dest, args)
 
+class AddEnvironmentVariableAction(argparse.Action):
+    def __init__(self,
+                 option_strings,
+                 dest,
+                 nargs=None,
+                 **kwargs):
+        if nargs is not None:
+            raise ValueError("nargs not allowed")
+        super(AddEnvironmentVariableAction, self).__init__(
+            option_strings,
+            dest=dest,
+            **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        try:
+            assert isinstance(values, str)
+        except AssertionError:
+            raise TypeError("%s is not a string" % values)
+        if not hasattr(namespace, self.dest):
+            setattr(namespace, self.dest, {})
+        args = values.split(sep="=", maxsplit=1)
+        env = getattr(namespace, self.dest)
+        env[args[0]] = args[1]
+
 
 def getVersion():
     import pkg_resources
@@ -114,6 +138,10 @@ def main():
     parser.add_argument("-v", "--version", dest="showversion", action="version",
                         version=getVersion(),
                         help="Display the current version.", default=False)
+    parser.add_argument("-E", "--environment", dest="environment",
+                        action=AddEnvironmentVariableAction,
+                        help="Pass environment variables into the containers"
+                        " where the packages are built.",default=None)
 
     # parameters
     parser.add_argument("version",
@@ -145,7 +173,8 @@ def main():
     packager = Packager(conf=conf.getData(), srcDir=args.sourceDir,
                         outputDir=args.outputdir,
                         version=version, release=release,
-                        distributions=args.distributions)
+                        distributions=args.distributions,
+                        environment=args.environment)
 
     print("This program is licensed under the GPLv2, a copy of which is ")
     print("included with this software package.")

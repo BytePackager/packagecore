@@ -89,9 +89,19 @@ class DockerContainer:
     #
     # @param imageName The image to create it from.
     # @param useLXC Use lxc-attach instead of 'exec' command.
+    # @param environment Map of environment variables to set inside of the
+    # docker container.
     #
     # @return The docker container.
-    def __init__(self, imageName, useLXC):
+    def __init__(self, imageName, useLXC, environment=None):
+        if not environment:
+            environment = {}
+
+        envCommands = []
+        for name,value in environment:
+            envCommands.append("-e")
+            envCommands.append("%s='%s'" % (name, value))
+
         self._image = imageName
         # get a unique name
         self._name = "packagecore-%x" % random.randrange(0, 2**64)
@@ -109,7 +119,8 @@ class DockerContainer:
         self._proc = Popen(["docker", "run", "--name", self._name, "-v",
                             "%s:%s" % (self.getSharedDir(),
                                        self.getSharedDir()),
-                            self._image, "tail", "-f", "/dev/null"], stdout=PIPE, stderr=PIPE)
+                            self._image, "tail", "-f", "/dev/null"] +
+                            envCommands, stdout=PIPE, stderr=PIPE)
 
         # wait for our container to start
         running = False
