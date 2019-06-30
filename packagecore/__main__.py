@@ -63,6 +63,7 @@ class ParseCommaSeparatedListAction(argparse.Action):
         args = values.split(",")
         setattr(namespace, self.dest, args)
 
+
 class AddEnvironmentVariableAction(argparse.Action):
     def __init__(self,
                  option_strings,
@@ -141,7 +142,7 @@ def main():
     parser.add_argument("-e", "--environment", dest="environment",
                         action=AddEnvironmentVariableAction,
                         help="Pass environment variables into the containers"
-                        " where the packages are built.",default=None)
+                        " where the packages are built.", default=None)
 
     # parameters
     parser.add_argument("version",

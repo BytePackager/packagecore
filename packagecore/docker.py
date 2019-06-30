@@ -97,7 +97,7 @@ class DockerContainer:
     def __init__(self, imageName, useLXC, environment=None):
         envCommands = []
         if environment:
-            for name,value in environment.items():
+            for name, value in environment.items():
                 envCommands.append("-e")
                 envCommands.append("%s='%s'" % (name, value))
 
@@ -119,7 +119,7 @@ class DockerContainer:
                             "%s:%s" % (self.getSharedDir(),
                                        self.getSharedDir())
                             ] + envCommands + [self._image, "tail", "-f", "/dev/null"],
-                            stdout=PIPE, stderr=PIPE)
+                           stdout=PIPE, stderr=PIPE)
 
         # wait for our container to start
         running = False
@@ -169,7 +169,7 @@ class DockerContainer:
     # @return None
     def executeScript(self, script, env=None):
         if not env:
-            env = {} 
+            env = {}
         scriptName = os.path.join(self.getSharedDir(), ".packagecore_script")
         generateScript(scriptName, script, env)
         self.execute(scriptName)
@@ -271,7 +271,7 @@ class Docker:
     def start(self, dockerImage, env=None):
         self.__fetchImage(dockerImage)
         return DockerContainer(imageName=dockerImage, useLXC=self._useLXC,
-            environment=env)
+                               environment=env)
 
     ##
     # @brief Close the container (actualyl just delete the image).
