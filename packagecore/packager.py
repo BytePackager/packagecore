@@ -40,9 +40,13 @@ class Packager:
     #
     # @return The new Packager.
     def __init__(self, conf, srcDir, outputDir, version, release,
-                 distributions=None):
+                 distributions=None, environment=None):
         self._outputDir = outputDir
         self._srcDir = srcDir
+
+        if not environment:
+            environment = {}
+        self._environment = environment
 
         if not os.path.exists(self._outputDir):
             os.makedirs(self._outputDir)
@@ -80,7 +84,7 @@ class Packager:
         outfile = os.path.join(self._outputDir, name)
 
         # build the package
-        container = self._docker.start(imageName)
+        container = self._docker.start(imageName, env=self._environment)
 
         print("Using shared directory '%s' and source directory '%s'." %
               (container.getSharedDir(), container.getSourceDir()))
@@ -109,7 +113,7 @@ class Packager:
         shutil.move(tmpfile, outfile)
 
         # spawn a new docker container
-        container = self._docker.start(imageName)
+        container = self._docker.start(imageName, env=self._environment)
         try:
             # copy in the package for installation
             dstFile = os.path.join(
