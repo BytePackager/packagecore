@@ -49,6 +49,7 @@ def _dockerExecCommand(cmd, containerName):
 
 
 def _checkedDockerCommand(cmd):
+    print("RUN: %s" % " ".join(cmd))
     status = _uncheckedDockerCommand(cmd)
     if status != 0:
         raise DockerError("Command '%s' returned %d." % (cmd, status))
@@ -94,13 +95,13 @@ class DockerContainer:
     #
     # @return The docker container.
     def __init__(self, imageName, useLXC, environment=None):
-        if not environment:
-            environment = {}
-
-        envCommands = []
-        for name,value in environment:
-            envCommands.append("-e")
-            envCommands.append("%s='%s'" % (name, value))
+        self._envCommands = []
+        self._env = {}
+        if environment:
+            self._env.update(environment)
+            for name,value in environment.items():
+                self._envCommands.append("-e")
+                self._envCommands.append("%s='%s'" % (name, value))
 
         self._image = imageName
         # get a unique name
@@ -118,9 +119,9 @@ class DockerContainer:
         # hack to keep the container running
         self._proc = Popen(["docker", "run", "--name", self._name, "-v",
                             "%s:%s" % (self.getSharedDir(),
-                                       self.getSharedDir()),
-                            self._image, "tail", "-f", "/dev/null"] +
-                            envCommands, stdout=PIPE, stderr=PIPE)
+                                       self.getSharedDir())
+                            ] + self._envCommands + [self._image, "tail", "-f", "/dev/null"],
+                            stdout=PIPE, stderr=PIPE)
 
         # wait for our container to start
         running = False
@@ -157,7 +158,7 @@ class DockerContainer:
         if not isinstance(cmd, list):
             raise InputError("Requires list of commands, not '%s'" % type(cmd))
         if not self._useLXC:
-            _checkedDockerCommand(["exec", self._name] + cmd)
+            _checkedDockerCommand(["exec"] + self._envCommands + [self._name] + cmd)
         else:
             _lxcAttachCommand(cmd, self._name)
 
@@ -169,6 +170,11 @@ class DockerContainer:
     #
     # @return None
     def executeScript(self, script, env=None):
+        if not env:
+            env = self._env
+        else:
+            env = env.copy()
+            env.update(self._env)
         scriptName = os.path.join(self.getSharedDir(), ".packagecore_script")
         generateScript(scriptName, script, env)
         self.execute(scriptName)
@@ -264,11 +270,13 @@ class Docker:
     # @brief Start an image.
     #
     # @param dockerImage The name of the image to start.
+    # @param env The environment variables to set.
     #
     # @return The started container.
-    def start(self, dockerImage):
+    def start(self, dockerImage, env=None):
         self.__fetchImage(dockerImage)
-        return DockerContainer(imageName=dockerImage, useLXC=self._useLXC)
+        return DockerContainer(imageName=dockerImage, useLXC=self._useLXC,
+            environment=env)
 
     ##
     # @brief Close the container (actualyl just delete the image).

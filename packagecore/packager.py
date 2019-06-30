@@ -84,7 +84,7 @@ class Packager:
         outfile = os.path.join(self._outputDir, name)
 
         # build the package
-        container = self._docker.start(imageName)
+        container = self._docker.start(imageName, env=self._environment)
 
         print("Using shared directory '%s' and source directory '%s'." %
               (container.getSharedDir(), container.getSourceDir()))
@@ -113,7 +113,7 @@ class Packager:
         shutil.move(tmpfile, outfile)
 
         # spawn a new docker container
-        container = self._docker.start(imageName)
+        container = self._docker.start(imageName, env=self._environment)
         try:
             # copy in the package for installation
             dstFile = os.path.join(
