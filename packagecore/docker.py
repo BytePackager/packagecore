@@ -60,7 +60,6 @@ def _uncheckedDockerCommand(cmd):
     status = proc.wait()
     return status
 
-
 class MockContainer:
     def __init__(self):
         _makeDir(self.getSharedDir())
@@ -99,7 +98,7 @@ class DockerContainer:
         if environment:
             for name, value in environment.items():
                 envCommands.append("-e")
-                envCommands.append("%s='%s'" % (name, value))
+                envCommands.append("%s=%s" % (name, value))
 
         self._image = imageName
         # get a unique name
