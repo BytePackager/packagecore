@@ -241,7 +241,7 @@ class Docker:
         # determine if we're using lxc or libcontainer
         grep = Popen(["docker", "info"], stdout=PIPE, stderr=PIPE)
         stdout = grep.communicate()[0]
-        output = str(stdout)
+        output = stdout.decode('utf8')
         print("DOCKER_INFO")
         print(output)
         if output.find("lxc-") < 0:
