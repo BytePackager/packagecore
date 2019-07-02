@@ -60,6 +60,7 @@ def _uncheckedDockerCommand(cmd):
     status = proc.wait()
     return status
 
+
 class MockContainer:
     def __init__(self):
         _makeDir(self.getSharedDir())
