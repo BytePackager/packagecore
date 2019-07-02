@@ -47,6 +47,9 @@ flags/options:
   directory does not exist, it will be created. Defaults
   to ./.
 
+* `-e <variable name>=<variable value>`:
+  Add the given environment variable to the executed docker containers. May be
+  specified multiple times to provide multiple environment variables.
 
 
 You can also get a list of distribution that packages can currently be built
