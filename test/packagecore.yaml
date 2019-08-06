@@ -21,7 +21,7 @@ packages:
   centos7.6:
     builddeps:
       - gcc
-  debian9:
+  debian10:
     builddeps:
       - gcc
   fedora30:
