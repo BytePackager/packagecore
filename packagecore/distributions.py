@@ -76,6 +76,11 @@ DATA = {
         "packageType": "debian",
         "formatString": "{name}_{version}-{release}_debian9.{arch}.deb"
     },
+    "debian10": {
+        "dockerImage": "debian:buster",
+        "packageType": "debian",
+        "formatString": "{name}_{version}-{release}_debian10.{arch}.deb"
+    },
     "fedora22": {
         "dockerImage": "fedora:22",
         "packageType": "rpm-dnf",
