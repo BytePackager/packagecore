@@ -10,7 +10,7 @@ before_install:
   - sudo pip3 install pyyaml pylint
 script:
   - if [[ "${TRAVIS_TAG}" == "v${TRAVIS_TAG#v}" ]]; then [[ "${TRAVIS_TAG#v}" != "$(cat VERSION)" ]] && exit 1 || echo "Version match"; fi
-  - python3 -m pylint packagecore
+  - pylint packagecore
   - ./setup.py test
   - ./setup.py sdist
   - sudo pip3 install --upgrade "dist/packagecore-$(cat VERSION).tar.gz"
