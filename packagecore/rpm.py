@@ -21,6 +21,7 @@ RPM_ZYPPER = "zypper"
 RPM_DNF = "dnf"
 RPM_YUM = "yum"
 
+
 class InvalidStateError(Exception):
     pass
 
@@ -94,7 +95,7 @@ cp "${OUTRPM}" "${RPM}"
                                 ".bytepackager_installrpmrebuild.sh")
 
         script = \
-"""
+            """
 RPM_REBUILD_MD5SUM="28b865e8829cf7ab75b81d1c34c8c612"
 RPM_REBUILD_FILENAME="rpmrebuild-2.11.tar.gz"
 RPM_REBUILD_URL="http://downloads.sourceforge.net/rpmrebuild/rpmrebuild-2.11.tar.gz"
@@ -113,19 +114,17 @@ make install || exit 1
 """
         generateScript(filename, script)
 
-
         container.execute(["/usr/bin/yum", "install", "-y", "wget"])
 
         print("Installing generic RPM rebuild.")
         container.execute([filename,
                            os.path.join(container.getSharedDir(), self.getName())])
 
-       
-
     ##
     # @brief Get the name of the spec file that will be generated.
     #
     # @return The name/path.
+
     def getSpecFileName(self):
         return self._specFile
 
