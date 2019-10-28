@@ -90,10 +90,41 @@ cp "${OUTRPM}" "${RPM}"
         container.execute([filename,
                            os.path.join(container.getSharedDir(), self.getName())])
 
+    def __installRpmRebuildNoArch(self, container):
+        filename = os.path.join(container.getSourceDir(),
+                                ".bytepackager_installrpmrebuild.sh")
+
+        script = \
+            """
+RPM_REBUILD_MD5SUM="28b865e8829cf7ab75b81d1c34c8c612"
+RPM_REBUILD_FILENAME="rpmrebuild-2.11.tar.gz"
+RPM_REBUILD_URL="http://downloads.sourceforge.net/rpmrebuild/rpmrebuild-2.11.tar.gz"
+
+wget "${RPM_REBUILD_URL}" || exit 1
+
+md5sum -c <(echo "${RPM_REBUILD_MD5SUM} ${RPM_REBUILD_FILENAME}") || exit 1
+
+mkdir rpmrebuild
+cd rpmrebuild
+
+tar xvf "../${RPM_REBUILD_FILENAME}" || exit 1
+
+make || exit 1
+make install || exit 1
+"""
+        generateScript(filename, script)
+
+        container.execute(["/usr/bin/yum", "install", "-y", "wget"])
+
+        print("Installing generic RPM rebuild.")
+        container.execute([filename,
+                           os.path.join(container.getSharedDir(), self.getName())])
+
     ##
     # @brief Get the name of the spec file that will be generated.
     #
     # @return The name/path.
+
     def getSpecFileName(self):
         return self._specFile
 
@@ -183,12 +214,15 @@ fi
                 container.execute(
                     ["/usr/bin/yum", "install", "-y", "rpmrebuild"])
             except DockerError:
-                container.execute(
-                    ["/usr/bin/yum", "install", "-y", "epel-release"])
-                container.execute(
-                    ["/usr/bin/yum-config-manager", "--enable", "epel"])
-                container.execute(
-                    ["/usr/bin/yum", "install", "-y", "rpmrebuild"])
+                try:
+                    container.execute(
+                        ["/usr/bin/yum", "install", "-y", "epel-release"])
+                    container.execute(
+                        ["/usr/bin/yum-config-manager", "--enable", "epel"])
+                    container.execute(
+                        ["/usr/bin/yum", "install", "-y", "rpmrebuild"])
+                except DockerError:
+                    self.__installRpmRebuildNoArch(container)
         elif self._packageManager == RPM_DNF:
             container.execute(["/usr/bin/dnf", "install", "-y",
                                "dnf-command(repoquery)", "rpm-build", "rpmrebuild",
