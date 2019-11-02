@@ -24,7 +24,7 @@ packages:
   debian10:
     builddeps:
       - gcc
-  fedora30:
+  fedora31:
     builddeps:
       - gcc
   opensuse15.1:
