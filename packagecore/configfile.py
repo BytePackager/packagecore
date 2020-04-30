@@ -13,7 +13,7 @@ import yaml
 class YAMLConfigFile:
     def __init__(self, filename):
         with open(filename, "r") as yamlfile:
-            self._data = yaml.load(yamlfile.read())
+            self._data = yaml.load(yamlfile.read(), Loader=yaml.SafeLoader)
 
     def getData(self):
         return self._data.copy()
