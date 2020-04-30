@@ -30,7 +30,7 @@ packages:
   opensuse15.1:
     builddeps:
       - gcc
-  ubuntu18.04:
+  ubuntu20.04:
     builddeps:
       - gcc
     rundeps:

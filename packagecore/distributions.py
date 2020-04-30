@@ -181,4 +181,10 @@ DATA = {
         "packageType": "debian",
         "formatString": "{name}_{version}-{release}_ubuntu18.04.{arch}.deb"
     },
+    "ubuntu20.04": {
+        "dockerImage": "ubuntu:20.04",
+        "packageType": "debian",
+        "formatString": "{name}_{version}-{release}_ubuntu20.04.{arch}.deb"
+    },
+
 }
