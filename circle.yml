@@ -8,7 +8,6 @@ jobs:
       - setup_remote_docker
       - run:
         command: |
-          pyenv global 3.6.1
           ./setup.py test
           ./setup.py sdist
           python3 -m pip install -vv --upgrade --force-reinstall "dist/packagecore-$(cat VERSION).tar.gz"
