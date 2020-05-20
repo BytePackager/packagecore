@@ -15,7 +15,7 @@ commands:
     - ls /var/tmp/test || exit 1
     - /var/tmp/test || exit 1
 packages:
-  amazonlinux2017.03:
+  archlinux:
     builddeps:
       - gcc
   centos7.7:
