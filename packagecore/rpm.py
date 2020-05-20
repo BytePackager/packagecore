@@ -79,7 +79,7 @@ comm -23 "${PKFILES}" "${FSFILES}" | sort -u > "${NEWFILES}"
 
 OUTPUT="$(rpmrebuild -p --change-spec-files="cat ${NEWFILES}" "${RPM}")"
 
-OUTRPM="${OUTPUT#result: }"
+OUTRPM="${OUTPUT#*result: }"
 
 cp "${OUTRPM}" "${RPM}"
 """
