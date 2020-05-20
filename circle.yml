@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu:18.04
+      - image: circleci/python:3.8.1
     steps:
       - checkout
       - setup_remote_docker
