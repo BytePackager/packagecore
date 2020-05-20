@@ -14,6 +14,6 @@ jobs:
             ./setup.py sdist
             python3 -m pip install -vv --upgrade --force-reinstall "dist/packagecore-$(cat VERSION).tar.gz"
             $(pyenv root)/versions/3.7.0/bin/packagecore -C test -p ubuntu20.04 1.2.3 4 || exit 1
-            python3 -m pip uninstall packagecore
+            python3 -m pip uninstall -y packagecore
             if [[ "${CIRCLE_TAG}" == "v${CIRCLE_TAG#v}" ]]; then packagecore -C test 1.2.3 5 || exit 1; fi
 
