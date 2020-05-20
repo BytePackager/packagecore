@@ -1,11 +1,10 @@
 version: 2.1
 jobs:
   build:
-    docker:
-      - image: circleci/python:3.8.1
+    machine:
+      image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - setup_remote_docker
       - run:
           command: |-
             ./setup.py test
