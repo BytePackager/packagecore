@@ -8,6 +8,7 @@ jobs:
       - run:
           command: |-
             pyenv global 3.7.0
+            cd packagecore
             ./setup.py test
             ./setup.py sdist
             python3 -m pip install -vv --upgrade --force-reinstall "dist/packagecore-$(cat VERSION).tar.gz"
