@@ -34,7 +34,7 @@ def _sanitize(version):
 
 def _makeDir(path):
     try:
-        os.makedirs(path, 0o700)
+        os.makedirs(path, 0o755)
     except FileExistsError:
         pass
 
