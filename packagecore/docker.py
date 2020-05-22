@@ -56,7 +56,7 @@ def _checkedDockerCommand(cmd):
 
 
 def _uncheckedDockerCommand(cmd):
-    proc = Popen(["docker"] + cmd)
+    proc = Popen(["docker"] + cmd, stdout=sys.stdout, stderr=sys.stdout)
     status = proc.wait()
     return status
 
