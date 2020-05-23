@@ -3,6 +3,7 @@
 # @brief Class for generating .pkg packages.
 # @author Dominique LaSalle <packagecore@solidlake.com>
 # Copyright 2017-2019, Solid Lake LLC
+# Copyright 2019-2020, Dominique LaSalle
 # @version 1
 # @date 2017-05-28
 
@@ -32,9 +33,9 @@ def _sanitize(version):
     return re.sub(r'[/\s:-]', "_", version)
 
 
-def _makeDir(path):
+def _makeDir(path, mode=0o700):
     try:
-        os.makedirs(path, 0o755)
+        os.makedirs(path, mode)
     except FileExistsError:
         pass
 
@@ -193,7 +194,7 @@ BP_UPGRADE="true"
         # create our working directory
         self._pkgBuildDir = os.path.join(container.getSharedDir(),
                                          "arch-pkg")
-        _makeDir(self._pkgBuildDir)
+        _makeDir(self._pkgBuildDir, mode=0o777)
 
         self.generatePKGBUILDFile(container)
 

@@ -3,6 +3,7 @@
 # @brief The top-level Packager class for orchestrating the package builds.
 # @author Dominique LaSalle <packagecore@solidlake.com>
 # Copyright 2017-2019, Solid Lake LLC
+# Copyright 2019-2020, Dominique LaSalle
 # @version 1
 # @date 2017-07-03
 
