@@ -91,6 +91,8 @@ class Packager:
               (container.getSharedDir(), container.getSourceDir()))
 
         try:
+            container.execute(["ls", "-ltr"])
+
             # copy in source -- we must be in the source directory
             container.copySource(self._srcDir)
 
