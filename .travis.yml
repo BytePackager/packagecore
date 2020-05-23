@@ -14,7 +14,7 @@ script:
   - ./setup.py test
   - ./setup.py sdist
   - sudo pip3 install --upgrade "dist/packagecore-$(cat VERSION).tar.gz"
-  - if [[ "${TRAVIS_TAG}" == "v${TRAVIS_TAG#v}" ]]; then packagecore -o /tmp -C test 1.2.3 4 || exit 1; else packagecore -C test -o /tmp -p archlinux 1.2.3 4 || exit 1; fi
+  - if [[ "${TRAVIS_TAG}" == "v${TRAVIS_TAG#v}" ]]; then packagecore -o /tmp -C test 1.2.3 4 || exit 1; else packagecore -C test -o /tmp -p ubuntu20.04 1.2.3 4 || exit 1; fi
 before_deploy:
   - packagecore "${TRAVIS_TAG#v}"
 deploy:
