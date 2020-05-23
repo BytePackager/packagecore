@@ -64,7 +64,7 @@ def _uncheckedDockerCommand(cmd):
 
 class MockContainer:
     def __init__(self):
-        _makeDir(self.getSharedDir(), 0o777)
+        _makeDir(self.getSharedDir(), 0o700)
 
     def execute(self, cmd, cwd=None):
         pass
@@ -111,7 +111,7 @@ class DockerContainer:
         # make the shared directory
         if os.path.exists(self.getSharedDir()):
             shutil.rmtree(self.getSharedDir())
-        _makeDir(self.getSharedDir(), 0o777)
+        _makeDir(self.getSharedDir(), 0o700)
 
         print("Starting docker container '%s'." % self._name)
 

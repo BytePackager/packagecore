@@ -194,7 +194,7 @@ BP_UPGRADE="true"
         # create our working directory
         self._pkgBuildDir = os.path.join(container.getSharedDir(),
                                          "arch-pkg")
-        _makeDir(self._pkgBuildDir, mode=0o777)
+        _makeDir(self._pkgBuildDir, mode=0o700)
 
         self.generatePKGBUILDFile(container)
 
@@ -232,7 +232,6 @@ BP_UPGRADE="true"
 
         # docker doesn't let us change the working directory using `exec`, so we
         # need to use a shell
-        container.execute(["chown", "-R", "packagecore:packagecore", self._pkgBuildDir])
         container.execute(["/bin/bash", "-c",
                            ("pushd '%s' && sudo -u packagecore makepkg --skipinteg --noconfirm "
                             "--noprogressbar -sr --config='%s' PACKAGER='%s' && popd") %
