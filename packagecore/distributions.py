@@ -19,7 +19,7 @@ DATA = {
         "formatString": "{name}-{version}-{release}.al.2017.03.{arch}.rpm"
     },
     "archlinux": {
-        "dockerImage": "archlinux:latest",
+        "dockerImage": "archlinux:20200306",
         "packageType": "pkgbuild",
         "formatString": "{name}-{version}-{release}-{arch}.pkg.tar.xz"
     },
