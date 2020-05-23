@@ -115,12 +115,20 @@ class Packager:
 
         # spawn a new docker container
         container = self._docker.start(imageName, env=self._environment)
+
+        print("Using shared directory '%s' and source directory '%s'." %
+              (container.getSharedDir(), container.getSourceDir()))
+
         try:
+            container.execute(["ls", "-ltr"])
+
             # copy in the package for installation
             dstFile = os.path.join(
                 container.getSharedDir(), recipe.getName())
             shutil.copy(outfile, dstFile)
             recipe.install(container)
+
+            container.execute(["ls", "-ltr"])
 
             container.executeScript(job.testInstallCommands,
                                     {"BP_PACKAGE_FILE": dstFile})
