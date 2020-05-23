@@ -3,6 +3,7 @@
 # @brief Wrapper for utilizing docker containers.
 # @author Dominique LaSalle <packagecore@solidlake.com>
 # Copyright 2017-2019, Solid Lake LLC
+# Copyright 2019-2020, Dominique LaSalle
 # @version 1
 # @date 2017-07-03
 
@@ -19,9 +20,9 @@ from .scriptfile import generateScript
 USERNAME = "builder"
 
 
-def _makeDir(path):
+def _makeDir(path, mode=0o700):
     try:
-        os.makedirs(path, 0o700)
+        os.makedirs(path, mode)
     except FileExistsError:
         pass
 
@@ -56,14 +57,14 @@ def _checkedDockerCommand(cmd):
 
 
 def _uncheckedDockerCommand(cmd):
-    proc = Popen(["docker"] + cmd)
+    proc = Popen(["docker"] + cmd, stdout=sys.stdout, stderr=sys.stdout)
     status = proc.wait()
     return status
 
 
 class MockContainer:
     def __init__(self):
-        _makeDir(self.getSharedDir())
+        _makeDir(self.getSharedDir(), 0o700)
 
     def execute(self, cmd, cwd=None):
         pass
@@ -110,7 +111,7 @@ class DockerContainer:
         # make the shared directory
         if os.path.exists(self.getSharedDir()):
             shutil.rmtree(self.getSharedDir())
-        _makeDir(self.getSharedDir())
+        _makeDir(self.getSharedDir(), 0o700)
 
         print("Starting docker container '%s'." % self._name)
 

@@ -3,6 +3,7 @@
 # @brief Class for generating .pkg packages.
 # @author Dominique LaSalle <packagecore@solidlake.com>
 # Copyright 2017-2019, Solid Lake LLC
+# Copyright 2019-2020, Dominique LaSalle
 # @version 1
 # @date 2017-05-28
 
@@ -32,9 +33,9 @@ def _sanitize(version):
     return re.sub(r'[/\s:-]', "_", version)
 
 
-def _makeDir(path):
+def _makeDir(path, mode=0o700):
     try:
-        os.makedirs(path, 0o700)
+        os.makedirs(path, mode)
     except FileExistsError:
         pass
 
@@ -150,9 +151,9 @@ BP_UPGRADE="true"
 
             # arc uses many symlink in filesystem, so we'll create them to let things
             # get installed in the right locations and remove them
-            pkgFile.write("mkdir -p \"${BP_DESTDIR}/usr\"\n")
-            pkgFile.write("mkdir -p \"${BP_DESTDIR}/usr/lib\"\n")
-            pkgFile.write("mkdir -p \"${BP_DESTDIR}/usr/bin\"\n")
+            pkgFile.write("mkdir -m 755 -p \"${BP_DESTDIR}/usr\"\n")
+            pkgFile.write("mkdir -m 755 -p \"${BP_DESTDIR}/usr/lib\"\n")
+            pkgFile.write("mkdir -m 755 -p \"${BP_DESTDIR}/usr/bin\"\n")
             for link, dest in SYMLINKS.items():
                 pkgFile.write("ln -s \"${BP_DESTDIR}/%s\" \"${BP_DESTDIR}/%s\"\n" %
                               (dest, link))
@@ -193,7 +194,7 @@ BP_UPGRADE="true"
         # create our working directory
         self._pkgBuildDir = os.path.join(container.getSharedDir(),
                                          "arch-pkg")
-        _makeDir(self._pkgBuildDir)
+        _makeDir(self._pkgBuildDir, mode=0o700)
 
         self.generatePKGBUILDFile(container)
 

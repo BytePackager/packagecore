@@ -3,6 +3,7 @@
 # @brief The top-level Packager class for orchestrating the package builds.
 # @author Dominique LaSalle <packagecore@solidlake.com>
 # Copyright 2017-2019, Solid Lake LLC
+# Copyright 2019-2020, Dominique LaSalle
 # @version 1
 # @date 2017-07-03
 
@@ -114,6 +115,7 @@ class Packager:
 
         # spawn a new docker container
         container = self._docker.start(imageName, env=self._environment)
+
         try:
             # copy in the package for installation
             dstFile = os.path.join(

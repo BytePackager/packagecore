@@ -11,9 +11,8 @@ commands:
   install:
     - install -D -m 755 test "${BP_DESTDIR}/var/tmp/test"
   testinstall:
-    - ls "${BP_PACKAGE_FILE}" || exit 1
-    - ls /var/tmp/test || exit 1
-    - /var/tmp/test || exit 1
+    - ls -ltr /var/tmp/test || exit 2
+    - /var/tmp/test || exit 3
 packages:
   archlinux:
     builddeps:
