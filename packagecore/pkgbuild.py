@@ -151,9 +151,9 @@ BP_UPGRADE="true"
 
             # arc uses many symlink in filesystem, so we'll create them to let things
             # get installed in the right locations and remove them
-            pkgFile.write("mkdir -p \"${BP_DESTDIR}/usr\"\n")
-            pkgFile.write("mkdir -p \"${BP_DESTDIR}/usr/lib\"\n")
-            pkgFile.write("mkdir -p \"${BP_DESTDIR}/usr/bin\"\n")
+            pkgFile.write("mkdir -m 755 -p \"${BP_DESTDIR}/usr\"\n")
+            pkgFile.write("mkdir -m 755 -p \"${BP_DESTDIR}/usr/lib\"\n")
+            pkgFile.write("mkdir -m 755 -p \"${BP_DESTDIR}/usr/bin\"\n")
             for link, dest in SYMLINKS.items():
                 pkgFile.write("ln -s \"${BP_DESTDIR}/%s\" \"${BP_DESTDIR}/%s\"\n" %
                               (dest, link))
