@@ -232,6 +232,7 @@ BP_UPGRADE="true"
 
         # docker doesn't let us change the working directory using `exec`, so we
         # need to use a shell
+        container.execute(["chown", "-R", "packagecore:packagecore", self._pkgBuildDir])
         container.execute(["/bin/bash", "-c",
                            ("pushd '%s' && sudo -u packagecore makepkg --skipinteg --noconfirm "
                             "--noprogressbar -sr --config='%s' PACKAGER='%s' && popd") %
