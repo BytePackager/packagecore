@@ -11,9 +11,6 @@ commands:
   install:
     - install -D -m 755 test "${BP_DESTDIR}/var/tmp/test"
   testinstall:
-    - ls -ltrd /
-    - ls -ltr /
-    - ls -ltr /var/
     - ls -ltr /var/tmp/test || exit 2
     - /var/tmp/test || exit 3
 packages:
