@@ -164,6 +164,11 @@ DATA = {
         "packageType": "rpm-zypper",
         "formatString": "{name}-{version}-{release}.opensuse15.1.{arch}.rpm"
     },
+    "opensuse15.2": {
+        "dockerImage": "opensuse/leap:15.2",
+        "packageType": "rpm-zypper",
+        "formatString": "{name}-{version}-{release}.opensuse15.2.{arch}.rpm"
+    },
     "ubuntu14.04": {
         "dockerImage": "ubuntu:14.04",
         "packageType": "debian",
