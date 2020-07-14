@@ -26,7 +26,7 @@ packages:
   fedora32:
     builddeps:
       - gcc
-  opensuse15.1:
+  opensuse15.2:
     builddeps:
       - gcc
   ubuntu20.04:
